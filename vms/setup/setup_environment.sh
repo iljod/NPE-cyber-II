@@ -4,22 +4,20 @@ VM_KALI_NAME="Kali_Attacker_PwnKit"
 VM_VULN_NAME="Ubuntu_Vulnerable_PwnKit"
 VM_OS_TYPE="Linux_64"
 
-VDI_KALI_PATH="vbox_disks/Kali.vdi"
-VDI_VULN_PATH="vbox_disks/Ubuntu.vdi"
+VDI_KALI_PATH="vbox_disks/kali.vdi"
+VDI_VULN_PATH="vbox_disks/ubuntu.vdi"
 VM_RAM="2048"
 VM_VRAM="128"
 VM_CPUS="2"
 
 NETWORK_NAME="vboxnet0"
 
-echo "Starting VM Environment Setup for PwnKit (CVE-2021-4034)"
+echo "Starting VM Environment (CVE-2021-4034)"
 
 create_vm() {
     local vm_name="$1"
     local vdi_path="$2"
     local os_type="$3"
-
-    echo "--- Creating VM: $vm_name ---"
 
     if [ ! -f "$vdi_path" ]; then
         echo "Error: VDI file not found at $vdi_path"
@@ -33,24 +31,18 @@ create_vm() {
         sleep 2 # Geef VBox even tijd
     fi
 
-    echo "Creating VM..."
     VBoxManage createvm --name "$vm_name" --ostype "$os_type" --register
 
-    echo "Configuring VM settings (RAM, CPU, VRAM)..."
     VBoxManage modifyvm "$vm_name" --memory "$VM_RAM" --cpus "$VM_CPUS" --vram "$VM_VRAM"
     VBoxManage modifyvm "$vm_name" --graphicscontroller vmsvga # Aanbevolen voor moderne Linux
     VBoxManage modifyvm "$vm_name" --audio none # Audio is meestal niet nodig
     VBoxManage modifyvm "$vm_name" --clipboard-mode bidirectional # Handig voor copy/paste
 
-    echo "Configuring Network (Adapter 1: Host-Only '$NETWORK_NAME')..."
     VBoxManage modifyvm "$vm_name" --nic1 hostonly --hostonlyadapter1 "$NETWORK_NAME"
 
-    echo "Configuring Storage..."
     VBoxManage storagectl "$vm_name" --name "SATA Controller" --add sata --controller IntelAhci --portcount 1 --bootable on
     VBoxManage storageattach "$vm_name" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "$vdi_path"
 
-    echo "--- VM $vm_name created successfully ---"
-    echo "Starting VM $vm_name..."
     VBoxManage startvm "$vm_name" --type gui # Start met GUI (of headless)
 }
 
