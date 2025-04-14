@@ -21,15 +21,3 @@ Een "Vulnerable VM" met een oude Linux-versie waarop een kwetsbare pkexec draait
 
 Een "Attacker VM" met Kali Linux.
 Automatisatie via VBoxManage en bash scripts voor het opzetten van de VMs.
-
-Stap 1: Voorbereiding (Host Machine)
-
-Installeer VirtualBox: Zorg dat VirtualBox geïnstalleerd is op je host systeem.
-
-Download VDI's: Ga naar osboxes.org en download:
-
-Kali Linux VDI: [osboxes](https://www.osboxes.org/kali-linux/)
-
-Vulnerable OS VDI:
-
-    Plaats VDI's: Plaats de gedownloade .vdi bestanden op een logische locatie op je host machine.
