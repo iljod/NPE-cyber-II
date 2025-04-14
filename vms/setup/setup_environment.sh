@@ -2,12 +2,13 @@
 
 VM_KALI_NAME="Kali_Attacker_PwnKit"
 VM_VULN_NAME="Ubuntu_Vulnerable_PwnKit"
-VM_OS_TYPE="Linux_64" # Pas aan indien nodig (bv Ubuntu_64)
+VM_OS_TYPE="Linux_64"
 
-VDI_KALI_PATH="$HOME/vbox_disks/Kali-Linux-2024.1-virtualbox-amd64.vdi"VDI_VULN_PATH="$HOME/vbox_disks/Ubuntu-20.04.3-desktop-amd64.vdi"
-VM_RAM="2048"  # MB RAM
-VM_VRAM="128" # MB Video RAM
-VM_CPUS="2"   # Aantal CPUs
+VDI_KALI_PATH="vbox_disks/Kali.vdi"
+VDI_VULN_PATH="vbox_disks/Ubuntu.vdi"
+VM_RAM="2048"
+VM_VRAM="128"
+VM_CPUS="2"
 
 NETWORK_NAME="vboxnet0"
 
