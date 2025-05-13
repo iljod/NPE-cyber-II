@@ -1,61 +1,122 @@
-# Setupgids NPE-Cyber-II
+# Virtuele Machine Setup Gids
 
-Deze gids laat zien hoe je met één script je host en twee VM’s (Kali attacker + Ubuntu kwetsbaar) opzet.
+## 📋 Vereisten
 
-## 1. Vereisten op de host
+### Systeemvereisten
+- **CPU**: Dual-core processor of beter
+- **RAM**: 8GB minimum (4GB per VM)
+- **Opslag**: 20GB vrije ruimte
+- **OS**: Elk host OS dat door VirtualBox wordt ondersteund
 
-- VirtualBox 6.1+
-- Bash, wget, 7z
+### Benodigde Software
+- VirtualBox 6.1 of hoger
 - Git
+- Bash shell
+- wget
+- 7-Zip (voor het uitpakken van VDI bestanden)
 
-## 2. Clone en run setup‐script
+## 🚀 Snelle Start
 
-## 2.1 het dearchiveren werkt niet
-
-het déarchiveren werkt op dit moment nog niet automatisch, dus ik verwijs jullie naar:
-
-Download VDI's: Ga naar osboxes.org en download:
-Kali Linux VDI: [kali linux install](https://sourceforge.net/projects/osboxes/files/v/vb/25-Kl-l-x/2024.4/64bit.7z/download)
-Download deze vdi en noem het kali.vdi, en sla het op in NPE-cyber-II/vms/setup/vbox_disks
-
-Vulnerable OS VDI: [Ubuntu server 18.04 download](https://sourceforge.net/projects/osboxes/files/v/vb/59-U-u-svr/18.04/18.04.6/64bit.7z/download)
-Download deze vdi en noem het ubuntu.vdi, en sla het op in NPE-cyber-II/vms/setup/vbox_disks
-
-## 2.2 automatische setup van de vm's
-
-```bash
-git clone git@github.com:iljod/NPE-cyber-II #vanaf dat de deadline verstreken is zal ik de repo publiek zetten, zodat de profs ook zo te werk kunnen gaan
-cd NPE-cyber-II/setup
-chmod +x auto_setup_vms.sh
-./auto_setup_vms.sh
-```
-
-_Het script maakt `vboxnet0` aan en (re)creëert:_
-
-- `Kali_Attacker_PwnKit`
-- `Ubuntu_Vulnerable_PwnKit`
-
-## 3. Ubuntu VM configureren
-
-1. Log in op `Ubuntu_Vulnerable_PwnKit` via GUI (gebruikersnaam/wachtw: osboxes/osboxes.org).
-2. Maak SSH-gebruiker aan:
+1. Clone de repository:
    ```bash
-   sudo useradd -m tester
-   echo 'tester:testerpwd' | sudo chpasswd
-   ```
-3. Installeer en start SSH:
-   ```bash
-   sudo apt update
-   sudo apt install -y openssh-server
-   sudo systemctl enable --now ssh
-   sudo ufw allow 22/tcp      # open poort 22 voor SSH
-   ```
-4. Noteer het IP:
-   ```bash
-   ip -4 addr show scope global | grep -oP 'inet \K[\d.]+'
+   git clone https://github.com/yourusername/NPE-cyber-II.git
+   cd NPE-cyber-II
    ```
 
-## 4. Kali VM voorbereiden
+2. Maak de benodigde mappen aan:
+   ```bash
+   mkdir -p vms/setup/vbox_disks
+   cd vms/setup/vbox_disks
+   ```
 
-1. Log in op `Kali_Attacker_PwnKit` via GUI (osboxes/osboxes).
-2. Nu zijn beiden vm's compleet klaargezet voor de exploit.
+3. Download de VM images:
+   - Kali Linux: [Download Kali Linux VDI](https://sourceforge.net/projects/osboxes/files/v/vb/25-Kl-l-x/2024.4/64bit.7z/download)
+   - Ubuntu Server: [Download Ubuntu Server VDI](https://sourceforge.net/projects/osboxes/files/v/vb/59-U-u-svr/18.04/18.04.6/64bit.7z/download)
+
+4. Pak uit en hernoem de bestanden:
+   ```bash
+   7z x 64bit.7z
+   mv "Kali Linux 2024.4 64bit.vdi" kali.vdi
+   mv "Ubuntu Server 18.04.6 64bit.vdi" ubuntu.vdi
+   ```
+
+5. Plaats de VDI bestanden in de `vbox_disks` map.
+
+6. Voer het geautomatiseerde setup script uit:
+   ```bash
+   cd ../..
+   chmod +x auto_setup_vms.sh
+   ./auto_setup_vms.sh
+   ```
+
+### 2. Configureer Virtuele Machines (Dit gebeurd al automatisch, maar dit is wat wordt gedaan)
+
+#### Kali Linux (Aanvals-VM)
+1. Maak nieuwe VM aan in VirtualBox:
+   - Naam: `Kali_Attacker_PwnKit`
+   - Type: Linux
+   - Versie: Debian (64-bit)
+   - Geheugen: 2048 MB
+   - Harde schijf: Gebruik bestaande `kali.vdi`
+
+2. Netwerkinstellingen:
+   - Adapter 1: Host-only Adapter (vboxnet0)
+   - Promiscuous Mode: Allow All
+
+#### Ubuntu Server (Kwetsbare-VM)
+1. Maak nieuwe VM aan in VirtualBox:
+   - Naam: `Ubuntu_Vulnerable_PwnKit`
+   - Type: Linux
+   - Versie: Ubuntu (64-bit)
+   - Geheugen: 2048 MB
+   - Harde schijf: Gebruik bestaande `ubuntu.vdi`
+
+2. Netwerkinstellingen:
+   - Adapter 1: Host-only Adapter (vboxnet0)
+   - Promiscuous Mode: Allow All
+
+## 🔧 Post-Setup Configuratie (Dit gebeurd al automatisch, maar dit is wat wordt gedaan)
+
+### Ubuntu VM Configuratie
+
+1. Log in op de Ubuntu VM met de standaard inloggegevens:
+   - Gebruikersnaam: `osboxes`
+   - Wachtwoord: `osboxes.org`
+
+2. Voer het configuratiescript uit via GitHub:
+   ```bash
+   curl -sL https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/configure_ubuntu_vm.sh | sudo bash
+   ```
+
+Het script zal automatisch:
+- Het systeem updaten
+- SSH server installeren
+- Een `tester` gebruiker aanmaken
+- SSH configureren
+- Het IP-adres tonen
+
+### Kali VM Configuratie
+
+1. Inloggegevens:
+   - Gebruikersnaam: `osboxes`
+   - Wachtwoord: `osboxes`
+
+## ✅ Verificatie
+
+1. Test netwerkverbinding tussen VM's:
+   ```bash
+   # Op Kali VM
+   ping <ubuntu_ip>
+   
+   # Op Ubuntu VM
+   ping <kali_ip>
+   ```
+
+2. Test SSH toegang:
+   ```bash
+   # Op Kali VM
+   ssh tester@<ubuntu_ip>
+   ```
+
+## 📚 Volgende Stappen
+- Ga verder naar [Exploit Gids](exploitguide.md) om over de kwetsbaarheid te leren
