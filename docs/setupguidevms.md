@@ -19,34 +19,33 @@
 
 1. Clone de repository:
    ```bash
-   git clone https://github.com/yourusername/NPE-cyber-II.git
+   git clone https://github.com/iljod/NPE-cyber-II.git
    cd NPE-cyber-II
    ```
 
-2. Maak de benodigde mappen aan:
-   ```bash
-   mkdir -p vms/setup/vbox_disks
-   cd vms/setup/vbox_disks
-   ```
-
-3. Download de VM images:
-   - Kali Linux: [Download Kali Linux VDI](https://sourceforge.net/projects/osboxes/files/v/vb/25-Kl-l-x/2024.4/64bit.7z/download)
+2. Download de benodigde VDI bestanden:
+   - Kali Linux 2024.4: [Download](https://www.kali.org/get-kali/#kali-virtual-machines)
    - Ubuntu Server: [Download Ubuntu Server VDI](https://sourceforge.net/projects/osboxes/files/v/vb/59-U-u-svr/18.04/18.04.6/64bit.7z/download)
 
-4. Pak uit en hernoem de bestanden:
+   Plaats deze bestanden in de `setup/vbox_disks` directory:
    ```bash
-   7z x 64bit.7z
-   mv "Kali Linux 2024.4 64bit.vdi" kali.vdi
-   mv "Ubuntu Server 18.04.6 64bit.vdi" ubuntu.vdi
+   mkdir -p setup/vbox_disks
+   # Kopieer de gedownloade VDI bestanden naar setup/vbox_disks/
+   # en noem ze kali.vdi en ubuntu.vdi
    ```
 
-5. Plaats de VDI bestanden in de `vbox_disks` map.
-
-6. Voer het geautomatiseerde setup script uit:
+3. Pak de VDI bestanden uit:
    ```bash
-   cd ../..
-   chmod +x auto_setup_vms.sh
-   ./auto_setup_vms.sh
+   cd setup/vbox_disks
+   7z x ubuntu.7z
+   7z x kali.7z
+   ```
+
+4. Voer het setup script uit:
+   ```bash
+   cd setup
+   chmod +x setup_environment.sh
+   sudo ./setup_environment.sh
    ```
 
 ### 2. Configureer Virtuele Machines (Dit gebeurd al automatisch, maar dit is wat wordt gedaan)
@@ -59,8 +58,9 @@
    - Geheugen: 2048 MB
    - Harde schijf: Gebruik bestaande `kali.vdi`
 
-2. Netwerkinstellingen:
-   - Adapter 1: Host-only Adapter (vboxnet0)
+2. Netwerk instellingen:
+   - Adapter 1: Host-only Adapter
+   - Naam: vboxnet0
    - Promiscuous Mode: Allow All
 
 #### Ubuntu Server (Kwetsbare-VM)
@@ -71,8 +71,9 @@
    - Geheugen: 2048 MB
    - Harde schijf: Gebruik bestaande `ubuntu.vdi`
 
-2. Netwerkinstellingen:
-   - Adapter 1: Host-only Adapter (vboxnet0)
+2. Netwerk instellingen:
+   - Adapter 1: Host-only Adapter
+   - Naam: vboxnet0
    - Promiscuous Mode: Allow All
 
 ## 🔧 Post-Setup Configuratie (Dit gebeurd al automatisch, maar dit is wat wordt gedaan)
@@ -103,19 +104,20 @@ Het script zal automatisch:
 
 ## ✅ Verificatie
 
-1. Test netwerkverbinding tussen VM's:
+1. Controleer netwerkverbinding:
    ```bash
    # Op Kali VM
-   ping <ubuntu_ip>
+   ping 192.168.56.101  # Ubuntu VM IP
    
    # Op Ubuntu VM
-   ping <kali_ip>
+   ping 192.168.56.102  # Kali VM IP
    ```
 
-2. Test SSH toegang:
+2. Test SSH verbinding:
    ```bash
    # Op Kali VM
-   ssh tester@<ubuntu_ip>
+   ssh tester@192.168.56.101
+   # Wachtwoord: testerpwd
    ```
 
 ## 📚 Volgende Stappen
