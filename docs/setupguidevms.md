@@ -127,5 +127,28 @@ Het script zal automatisch:
    # Wachtwoord: testerpwd
    ```
 
+## 🔍 Test Polkit Kwetsbaarheid
+
+1. Kopieer het test script naar de Ubuntu VM:
+   ```bash
+   # Op Kali VM
+   scp setup/test_polkit_vuln.sh tester@192.168.56.101:~/
+   ```
+
+2. Voer het test script uit op de Ubuntu VM:
+   ```bash
+   # Op Ubuntu VM
+   chmod +x test_polkit_vuln.sh
+   ./test_polkit_vuln.sh
+   ```
+
+3. Interpreteer de resultaten:
+   - Als het systeem kwetsbaar is, zul je een rode waarschuwing zien
+   - Het script zal automatisch controleren op:
+     - SUID-bit instellingen
+     - GCONV_PATH manipulatie mogelijkheid
+     - Aanwezigheid van gconv-modules
+   - Voor kwetsbare systemen wordt een update naar polkit 0.105 of hoger aanbevolen
+
 ## 📚 Volgende Stappen
 - Ga verder naar [Exploit Gids](exploitguide.md) om over de kwetsbaarheid te leren
