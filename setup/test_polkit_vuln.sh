@@ -28,16 +28,16 @@ echo -e "\n[*] Test voor CVE-2021-4034 kwetsbaarheid..."
 # Test 1: Controleer of pkexec SUID-bit heeft
 if [[ -u $(which pkexec) ]]; then
     echo -e "${YELLOW}[*] pkexec heeft SUID-bit ingesteld${NC}"
-    
+
     # Test 2: Controleer of GCONV_PATH manipulatie mogelijk is
     TEMP_DIR=$(mktemp -d)
     cd "$TEMP_DIR"
-    
+
     # Maak test bestanden aan
     mkdir -p "GCONV_PATH=."
     echo "test" > "GCONV_PATH=./exploit"
     chmod +x "GCONV_PATH=./exploit"
-    
+
     # Test of pkexec de GCONV_PATH omgevingsvariabele accepteert
     if pkexec --help 2>&1 | grep -q "GCONV_PATH"; then
         echo -e "${RED}[!] pkexec accepteert GCONV_PATH omgevingsvariabele${NC}"
@@ -45,7 +45,7 @@ if [[ -u $(which pkexec) ]]; then
     else
         echo -e "${GREEN}[+] pkexec verwerpt GCONV_PATH omgevingsvariabele${NC}"
     fi
-    
+
     # Test 3: Controleer of het systeem gconv-modules ondersteunt
     if [[ -d "/usr/lib/gconv" ]] || [[ -d "/usr/lib64/gconv" ]]; then
         echo -e "${YELLOW}[*] Systeem heeft gconv-modules ondersteuning${NC}"
@@ -53,7 +53,7 @@ if [[ -u $(which pkexec) ]]; then
             echo -e "${RED}[!] Systeem is kwetsbaar voor GCONV_PATH exploit${NC}"
         fi
     fi
-    
+
     # Opruimen
     cd - > /dev/null
     rm -rf "$TEMP_DIR"
