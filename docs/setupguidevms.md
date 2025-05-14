@@ -39,7 +39,8 @@
    cd setup/vbox_disks
    7z x ubuntu.7z
    7z x kali.7z
-   ```
+   ```(manueel uitpakken indien windows 7z niet kan vinden.)
+
 
 4. Voer het setup script uit(Linux host):
    ```bash
