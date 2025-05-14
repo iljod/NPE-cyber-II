@@ -19,7 +19,7 @@ Deze repository bevat een complete lab-omgeving voor het bestuderen en oefenen v
 - **CVSS Score**: 7.8 (Hoog)
 - **Type**: Lokale Privilege Escalatie (LPE)
 - **Getroffen Component**: pkexec (Polkit)
-- **Ontdekking**: Qualys Security (25 januari 2022)
+- **Ontdekking**: Qualys Security
 
 ### Impact
 De kwetsbaarheid stelt een lokale aanvaller met beperkte rechten in staat om root-toegang te krijgen op het systeem. Dit is bijzonder gevaarlijk omdat:
