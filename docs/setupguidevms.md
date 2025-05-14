@@ -73,40 +73,6 @@
    .\setup_environment.ps1
    ```
 
-### 2. Configureer Virtuele Machines (Dit gebeurd al automatisch, maar dit is wat wordt gedaan)
-
-#### Kali Linux (Aanvals-VM)
-
-1. Maak nieuwe VM aan in VirtualBox:
-
-   - Naam: `Kali_Attacker_PwnKit`
-   - Type: Linux
-   - Versie: Debian (64-bit)
-   - Geheugen: 2048 MB
-   - Harde schijf: Gebruik bestaande `kali.vdi`
-
-2. Netwerk instellingen:
-   - Adapter 1: Host-only Adapter
-   - Naam: vboxnet0
-   - Promiscuous Mode: Allow All
-
-#### Ubuntu Server (Kwetsbare-VM)
-
-1. Maak nieuwe VM aan in VirtualBox:
-
-   - Naam: `Ubuntu_Vulnerable_PwnKit`
-   - Type: Linux
-   - Versie: Ubuntu (64-bit)
-   - Geheugen: 2048 MB
-   - Harde schijf: Gebruik bestaande `ubuntu.vdi`
-
-2. Netwerk instellingen:
-   - Adapter 1: Host-only Adapter
-   - Naam: vboxnet0
-   - Promiscuous Mode: Allow All
-
-## 🔧 Post-Setup Configuratie (Dit gebeurd al automatisch, maar dit is wat wordt gedaan)
-
 ### Ubuntu VM Configuratie
 
 1. Log in op de Ubuntu VM met de standaard inloggegevens:
@@ -114,6 +80,10 @@
    - Gebruikersnaam: `ubuntu`
    - Wachtwoord: `ubuntu`
 
+2. installatie prerequisites
+```bash
+sudo apt install curl
+```
 2. Voer het configuratiescript uit via GitHub:
    ```bash
    curl -sL https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/configure_ubuntu_vm.sh | sudo bash
