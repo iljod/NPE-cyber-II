@@ -107,37 +107,29 @@ Het script zal automatisch:
 
    ```bash
    # Op Kali VM
-   ping 192.168.56.101  # Ubuntu VM IP
+   ping  # Ubuntu VM IP
 
    # Op Ubuntu VM
-   ping 192.168.56.102  # Kali VM IP
+   ping  # Kali VM IP
    ```
 
 2. Test SSH verbinding:
    ```bash
    # Op Kali VM
-   ssh tester@192.168.56.101
+   ssh tester@ # Ubuntu VM IP
    # Wachtwoord: testerpwd
    ```
 
 ## 🔍 Test Polkit Kwetsbaarheid
 
-1. Kopieer het test script naar de Ubuntu VM:
+1. Voer het test script uit op de Ubuntu VM:
 
    ```bash
-   # Op Kali VM
-   scp setup/test_polkit_vuln.sh tester@192.168.56.101:~/
+   # Op Ubuntu VM (als gebruiker 'tester')
+   wget -qO- https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/test_polkit_vuln.sh | bash
    ```
 
-2. Voer het test script uit op de Ubuntu VM:
-
-   ```bash
-   # Op Ubuntu VM
-   chmod +x test_polkit_vuln.sh
-   ./test_polkit_vuln.sh
-   ```
-
-3. Interpreteer de resultaten:
+2. Interpreteer de resultaten:
    - Als het systeem kwetsbaar is, zul je een rode waarschuwing zien
    - Het script zal automatisch controleren op:
      - SUID-bit instellingen
