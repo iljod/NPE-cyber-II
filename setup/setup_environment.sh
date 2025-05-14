@@ -42,30 +42,30 @@ log_error() {
 
 check_prerequisites() {
     log_info "Controleren van vereisten..."
-    
+
     # Controleer VirtualBox installatie
     if ! command -v VBoxManage &> /dev/null; then
         log_error "VirtualBox is niet geïnstalleerd. Installeer VirtualBox 6.1 of hoger."
         exit 1
     fi
-    
+
     # Controleer VDI bestanden
     if [ ! -f "$VDI_KALI_PATH" ]; then
         log_error "Kali VDI bestand niet gevonden op $VDI_KALI_PATH"
         exit 1
     fi
-    
+
     if [ ! -f "$VDI_VULN_PATH" ]; then
         log_error "Ubuntu VDI bestand niet gevonden op $VDI_VULN_PATH"
         exit 1
     fi
-    
+
     log_info "Alle vereisten zijn voldaan."
 }
 
 create_hostonly_network() {
     log_info "Aanmaken van host-only netwerk..."
-    
+
     if ! VBoxManage list hostonlyifs | grep -q "$NETWORK_NAME"; then
         VBoxManage hostonlyif create
         log_info "Host-only netwerk aangemaakt: $NETWORK_NAME"
@@ -76,7 +76,7 @@ create_hostonly_network() {
 
 cleanup_vm() {
     local vm_name="$1"
-    
+
     if VBoxManage showvminfo "$vm_name" > /dev/null 2>&1; then
         log_info "Opruimen van bestaande VM: $vm_name"
         VBoxManage controlvm "$vm_name" poweroff --type emergencysave > /dev/null 2>&1 || true
@@ -89,15 +89,15 @@ create_vm() {
     local vm_name="$1"
     local vdi_path="$2"
     local os_type="$3"
-    
+
     log_info "Aanmaken van VM: $vm_name"
-    
+
     # Opruimen van bestaande VM indien aanwezig
     cleanup_vm "$vm_name"
-    
+
     # Nieuwe VM aanmaken
     VBoxManage createvm --name "$vm_name" --ostype "$os_type" --register
-    
+
     # VM instellingen configureren
     VBoxManage modifyvm "$vm_name" \
         --memory "$VM_RAM" \
@@ -109,7 +109,7 @@ create_vm() {
         --nic1 hostonly \
         --hostonlyadapter1 "$NETWORK_NAME" \
         --nicpromisc1 allow-all
-    
+
     # Opslag configureren
     VBoxManage storagectl "$vm_name" \
         --name "SATA Controller" \
@@ -117,14 +117,14 @@ create_vm() {
         --controller IntelAhci \
         --portcount 1 \
         --bootable on
-    
+
     VBoxManage storageattach "$vm_name" \
         --storagectl "SATA Controller" \
         --port 0 \
         --device 0 \
         --type hdd \
         --medium "$vdi_path"
-    
+
     log_info "VM $vm_name succesvol aangemaakt."
 }
 

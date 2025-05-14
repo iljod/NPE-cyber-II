@@ -67,4 +67,4 @@ echo "  Gebruikersnaam: tester"
 echo "  Wachtwoord: testerpwd"
 echo "===================================================="
 
-exit 0 
+exit 0
