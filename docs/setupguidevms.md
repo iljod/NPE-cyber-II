@@ -77,14 +77,16 @@
 
 1. Log in op de Ubuntu VM met de standaard inloggegevens:
 
-   - Gebruikersnaam: `ubuntu`
-   - Wachtwoord: `ubuntu`
+   - Gebruikersnaam: `osboxes`
+   - Wachtwoord: `osboxes.org`
 
-2. installatie prerequisites
+2. installatie prerequisites op de ubuntu vm
+2.1 open een terminal
+2.2 voer de volgende commando uit:
 ```bash
 sudo apt install curl
 ```
-2. Voer het configuratiescript uit via GitHub:
+2.3 voer het configuratiescript uit via GitHub:
    ```bash
    curl -sL https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/configure_ubuntu_vm.sh | sudo bash
    ```
@@ -101,7 +103,7 @@ Het script zal automatisch:
 
 1. Inloggegevens:
    - Gebruikersnaam: `osboxes`
-   - Wachtwoord: `osboxes`
+   - Wachtwoord: `osboxes.org`
 
 ## ✅ Verificatie
 
