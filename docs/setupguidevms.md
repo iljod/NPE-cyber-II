@@ -1,5 +1,17 @@
 # Virtuele Machine Setup Gids
 
+## 📄 Deployment Stappenplan
+
+- Clone de repository: `git clone https://github.com/iljod/NPE-cyber-II.git && cd NPE-cyber-II`
+- Download de VirtualBox VDI's voor de VMs van osboxes.org en plaats ze in `setup/vbox_disks` als `kali.vdi` en `ubuntu.vdi`
+- Maak de VDI directory aan (indien niet bestaan): `mkdir -p setup/vbox_disks`
+- Pak de VDI bestanden uit (indien gecomprimeerd)
+- Voer het setup script uit:
+  - Linux host: `cd setup && chmod +x setup_environment.sh && sudo ./setup_environment.sh`
+  - Windows host: `cd setup && Unblock-File .\setup_environment.ps1 && .\setup_environment.ps1`
+- Configureer de Ubuntu VM: `curl -sL https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/configure_ubuntu_vm.sh | sudo bash`
+- Verifieer de installatie met `./test_polkit_vuln.sh`
+
 ## 📋 Vereisten
 
 ### Systeemvereisten
@@ -28,8 +40,8 @@
 
 2. Download de benodigde VDI bestanden:
 
-   - Kali Linux 2024.4: [Download](https://www.kali.org/get-kali/#kali-virtual-machines)
-   - Ubuntu Server: [Download Ubuntu VDI](https://www.linuxvmimages.com/images/ubuntu-1804/)
+   - Kali Linux 2024.4 (VirtualBox VDI van osboxes.org): https://www.osboxes.org/kali-linux/
+   - Ubuntu Server 18.04 (VirtualBox VDI van osboxes.org): https://www.osboxes.org/ubuntu-server/
 
    Plaats deze bestanden in de `setup/vbox_disks` directory:
 
@@ -46,7 +58,6 @@
    7z x ubuntu.7z
    7z x kali.7z
    ```(manueel uitpakken indien windows 7z niet kan vinden.)
-
 
 4. Voer het setup script uit(Linux host):
    ```bash
@@ -169,4 +180,6 @@ Het script zal automatisch:
 ## 📚 Volgende Stappen
 
 - Ga verder naar [Exploit Gids](exploitguide.md) om over de kwetsbaarheid te leren
+- Kali Linux 2024.4 (VirtualBox VDI van osboxes.org): https://www.osboxes.org/kali-linux/
+- Download Ubuntu Server 18.04 (VirtualBox VDI van osboxes.org): https://www.osboxes.org/ubuntu-server/
 
