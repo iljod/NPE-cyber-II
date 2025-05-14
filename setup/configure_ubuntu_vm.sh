@@ -36,6 +36,7 @@ fi
 echo "Start Ubuntu VM Configuratie"
 echo "===================================================="
 
+
 # Maak tester gebruiker aan
 log_info "Tester gebruiker aanmaken..."
 useradd -m tester
@@ -43,6 +44,7 @@ echo 'tester:testerpwd' | chpasswd
 usermod -aG sudo tester
 
 # Configureer SSH
+apt install -y openssh-server
 log_info "SSH configureren..."
 systemctl enable --now ssh
 ufw allow 22/tcp

@@ -25,7 +25,7 @@
 
 - VirtualBox 6.1 of hoger
 - Git
-- Bash shell
+- powershell
 - wget
 - 7-Zip (voor het uitpakken van VDI bestanden)
 
@@ -75,10 +75,19 @@
 
 ### Ubuntu VM Configuratie
 
+#### SSH preppen
+
 1. Log in op de Ubuntu VM met de standaard inloggegevens:
 
    - Gebruikersnaam: `osboxes`
    - Wachtwoord: `osboxes.org`
+
+   en dan in de terminal
+```bash
+sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
+sudo ufw allow 22/tcp
+```
 
 2. installatie prerequisites op de ubuntu vm
 2.1 open een terminal
@@ -119,23 +128,6 @@ Het script zal automatisch:
    ssh tester@ # Ubuntu VM IP
    # Wachtwoord: testerpwd
    ```
-
-## 🔍 Test Polkit Kwetsbaarheid
-
-1. Voer het test script uit op de Ubuntu VM:
-
-   ```bash
-   # Op Ubuntu VM (als gebruiker 'tester')
-   wget -qO- https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/test_polkit_vuln.sh | bash
-   ```
-
-2. Interpreteer de resultaten:
-   - Als het systeem kwetsbaar is, zul je een rode waarschuwing zien
-   - Het script zal automatisch controleren op:
-     - SUID-bit instellingen
-     - GCONV_PATH manipulatie mogelijkheid
-     - Aanwezigheid van gconv-modules
-   - Voor kwetsbare systemen wordt een update naar polkit 0.105 of hoger aanbevolen
 
 ## 📚 Volgende Stappen
 
