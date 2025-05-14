@@ -36,14 +36,6 @@ fi
 echo "Start Ubuntu VM Configuratie"
 echo "===================================================="
 
-# Update systeem
-log_info "Systeem updaten..."
-apt update && apt upgrade -y
-
-# Installeer SSH server
-log_info "SSH server installeren..."
-apt install -y openssh-server
-
 # Maak tester gebruiker aan
 log_info "Tester gebruiker aanmaken..."
 useradd -m tester
@@ -66,5 +58,3 @@ echo "Je kunt nu inloggen met:"
 echo "  Gebruikersnaam: tester"
 echo "  Wachtwoord: testerpwd"
 echo "===================================================="
-
-exit 0

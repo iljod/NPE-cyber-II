@@ -9,7 +9,7 @@
 - Voer het setup script uit:
   - Linux host: `cd setup && chmod +x setup_environment.sh && sudo ./setup_environment.sh`
   - Windows host: `cd setup && Unblock-File .\setup_environment.ps1 && .\setup_environment.ps1`
-- Configureer de Ubuntu VM: `curl -sL https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/configure_ubuntu_vm.sh | sudo bash`
+- Configureer de Ubuntu VM: `wget -qO- https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/configure_ubuntu_vm.sh | sudo bash`
 - Verifieer de installatie met `./test_polkit_vuln.sh`
 
 ## 📋 Vereisten
@@ -82,13 +82,9 @@
 
 2. installatie prerequisites op de ubuntu vm
 2.1 open een terminal
-2.2 voer de volgende commando uit:
-```bash
-sudo apt install curl
-```
-2.3 voer het configuratiescript uit via GitHub:
+2.2 voer het configuratiescript uit via GitHub:
    ```bash
-   curl -sL https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/configure_ubuntu_vm.sh | sudo bash
+   wget -qO- https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/configure_ubuntu_vm.sh | sudo bash
    ```
 
 Het script zal automatisch:
