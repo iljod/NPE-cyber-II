@@ -41,11 +41,18 @@
    7z x kali.7z
    ```
 
-4. Voer het setup script uit:
+4. Voer het setup script uit(Linux host):
    ```bash
    cd setup
    chmod +x setup_environment.sh
    sudo ./setup_environment.sh
+   ```
+   - of (Windows host)
+    ```powershell
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   cd setup
+   Unblock-File .\setup_environment.ps1
+   .\setup_environment.ps1
    ```
 
 ### 2. Configureer Virtuele Machines (Dit gebeurd al automatisch, maar dit is wat wordt gedaan)
