@@ -10,7 +10,6 @@
   - Linux host: `cd setup && chmod +x setup_environment.sh && sudo ./setup_environment.sh`
   - Windows host: `cd setup && Unblock-File .\setup_environment.ps1 && .\setup_environment.ps1`
 - Configureer de Ubuntu VM: `wget -qO- https://raw.githubusercontent.com/iljod/NPE-cyber-II/main/setup/configure_ubuntu_vm.sh | sudo bash`
-- Verifieer de installatie met `./test_polkit_vuln.sh`
 
 ## 📋 Vereisten
 
